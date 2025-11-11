@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 from ciphers import (
     caesar, monoalphabetic, playfair, railfence, polyalphabetic,
-    hill, rsa, transposition, des
+    hill, rsa, transposition
 )
 
 # ---------------------- PAGE CONFIG ----------------------
@@ -94,8 +94,7 @@ cipher_choice = st.sidebar.selectbox(
         "Polyalphabetic (Vigenère)",
         "Hill Cipher",
         "RSA Cipher",
-        "Transposition Cipher",
-        "DES Cipher"
+        "Transposition Cipher"
     ]
 )
 mode = st.sidebar.radio("Mode:", ["Encrypt", "Decrypt"])
@@ -187,17 +186,6 @@ elif cipher_choice == "Transposition Cipher":
         if st.button("Run Cipher"):
             run_cipher(transposition.encrypt if mode=="Encrypt" else transposition.decrypt, text_input, key)
     card("🔀 Transposition Cipher", "Rearrange columns to encrypt.", inputs)
-
-# DES Cipher
-elif cipher_choice == "DES Cipher":
-    def inputs():
-        key = st.text_input("8-character Key:", placeholder="LOCKCODE")
-        if st.button("Run Cipher"):
-            if len(key.strip()) == 0:
-                st.error("Please enter a valid key.")
-            else:
-                run_cipher(des.encrypt if mode=="Encrypt" else des.decrypt, text_input, key)
-    card("🗝️ DES Cipher", "Block cipher encryption using DES.", inputs)
 
 # RSA Cipher
 elif cipher_choice == "RSA Cipher":
